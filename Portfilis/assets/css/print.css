@@ -1,0 +1,35 @@
+/* Bendri stiliai */
+body {
+    font-family: 'serif'; /* Serifinis šriftas */
+    line-height: 1.6;
+  }
+  
+  /* Nuoroda spausdinimui stiliai */
+  .print-link {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .print-link a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  /* Stiliai spausdinimui */
+  @media print {
+    body {
+      font-family: 'serif';
+    }
+  
+    /* Paslėpkite elementus, kurių nenorite spausdinti */
+    nav, .footer, .some-other-element {
+      display: none;
+    }
+  
+    /* Pridėkite kitus stilius, kad būtų tinkama spausdinimo išdėstymo struktūra */
+  }
+  
