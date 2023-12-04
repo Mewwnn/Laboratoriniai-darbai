@@ -24,9 +24,14 @@ body {
     body {
       font-family: 'serif';
     }
+    video
+    {
+        display: none !important;
+    }
+  
   
     /* Paslėpkite elementus, kurių nenorite spausdinti */
-    nav, .footer, .some-other-element {
+    nav, .footer, .some-other-element, body iframe, body audio {
       display: none;
     }
   
