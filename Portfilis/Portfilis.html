@@ -15,7 +15,6 @@
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Vendor CSS Files -->
-<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;display=swap'>
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
@@ -295,7 +294,116 @@
       </p>
     </div>
   </div>
+  
 </section><!-- End Services Section -->
+<button class="open-button" onclick="openForm()">Forma</button>
+<div class="form-popup" id="myForm">
+<form id="form-container">
+  <label for="Vardas">Vardas:</label>
+  <input type="text" id="Vardas" required>
+
+  <label for="Pavarde">Pavardė:</label>
+  <input type="text" id="Pavarde" required>
+
+  <label for="Email">El. pašto adresas:</label>
+  <input type="Email" id="Email" required>
+
+  <label for="Phone">Telefono numeris:</label>
+  <input type="tel" id="Phone" required>
+
+  <label for="Adresas">Adresas:</label>
+  <textarea id="Adresas" required></textarea>
+
+  <label for="Skaicius1">Požymis 1 (skaičius):</label>
+  <input type="number" id="Skaicius1" required>
+
+  <label for="Skaicius2">Požymis 2 (skaičius):</label>
+  <input type="number" id="Skaicius2" required>
+
+  <label for="Skaicius3">Požymis 3 (skaičius):</label>
+  <input type="number" id="Skaicius3" required>
+
+  <label for="Skaicius4">Požymis 4 (skaičius):</label>
+  <input type="number" id="Skaicius4" required>
+
+  <label for="Skaicius5">Požymis 5 (skaičius):</label>
+  <input type="number" id="Skaicius5" required>
+
+  <button type="submit" class="btn">Išsaugoti</button>
+  <button type="button" class="btn cancel" onclick="closeForm()">Uždaryti</button>
+</form>
+</div>
+
+<script>
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById('form-container').addEventListener('submit', saveContact);
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  } 
+
+  function saveContact(event) {
+    event.preventDefault();
+
+    // Sukurkite JavaScript objektą ir priskirkite reikšmes iš formos laukų
+    var contactData = {
+        Vardas: document.getElementById('Vardas').value,
+        Pavarde: document.getElementById('Pavarde').value,
+        Email: document.getElementById('Email').value,
+        Phone: document.getElementById('Phone').value,
+        Adresas: document.getElementById('Adresas').value,
+        Skaicius1: parseFloat(document.getElementById('Skaicius1').value),
+        Skaicius2: parseFloat(document.getElementById('Skaicius2').value),
+        Skaicius3: parseFloat(document.getElementById('Skaicius3').value),
+        Skaicius4: parseFloat(document.getElementById('Skaicius4').value),
+        Skaicius5: parseFloat(document.getElementById('Skaicius5').value),
+    };
+
+    // Patikrinkite el. pašto adreso formato teisingumą
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(contactData.Email)) {
+        alert('Klaida: Netinkamas el. pašto adreso formatas.');
+        return;
+    }
+
+    // Patikrinkite telefono numerio formato teisingumą
+    var phoneRegex = /^\d{12}$/;
+    if (!phoneRegex.test(contactData.Phone)) {
+        alert('Klaida: Netinkamas telefono numerio formatas.');
+        return;
+    }
+
+    // Patikrinkite, ar adresas įvestas
+    if (contactData.Adresas.trim() === '') {
+        alert('Klaida: Adreso laukas negali būti tuščias.');
+        return;
+    }
+
+    // Išvesti rezultatą tinklalapyje suformatuotu būdu
+    var resultOutput = document.getElementById('resultOutput');
+    var featuresAverage = (contactData.Skaicius1 + contactData.Skaicius2 + contactData.Skaicius3 +
+                          contactData.Skaicius4 + contactData.Skaicius5) / 5;
+    resultOutput.innerHTML = `
+        <p style="color: ${getColorByAverage(featuresAverage)};">
+            ${contactData.Vardas} ${contactData.Pavarde} (${contactData.Email}): Požymių vidurkis: ${featuresAverage.toFixed(2)}
+        </p>
+    `;
+  }
+  console.log(contactData);
+  function getColorByAverage(average) {
+    if (average < 3) {
+        return 'red';
+    } else if (average < 7) {
+        return 'orange';
+    } else {
+        return 'green';
+    }
+  }
+</script>`
+
+<div id="resultOutput"></div>
 <footer>
   
   <div class="container">
